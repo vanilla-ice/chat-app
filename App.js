@@ -54,7 +54,12 @@ export default class App extends React.Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding" onPress={Keyboard.dismiss}>
         <View style={styles.header}><Text style={styles.title}>Let's chat!</Text></View>
 
-          <ScrollView contentContainerStyle={styles.messages}>
+          <ScrollView 
+            contentContainerStyle={styles.messages}
+            ref={ref => this.scrollView = ref}
+            onContentSizeChange={(contentWidth, contentHeight)=> {
+              this.scrollView.scrollToEnd({animated: true});
+            }}>
             {
               this.state.messages.map((message, id) => 
                 <TouchableHighlight key={id} style={message.userId === this.state.userId ? styles.ownMessage : styles.messageWrapper}>
